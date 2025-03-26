@@ -1,11 +1,11 @@
 import { HomeLink, Inner, Item, ItemText, NavBar } from "./Styles";
 import { Icons } from "../Icons";
 import Avatar from "../Avatar";
+import Logo from "../../../assets/images/Logo.png";
 
 type Props = {};
 
 function Nav({}: Props) {
-  const HomeIcon = Icons["home"];
   const PlusIcon = Icons["plus"];
   const SearchIcon = Icons["search"];
 
@@ -13,7 +13,7 @@ function Nav({}: Props) {
     <NavBar>
       <Inner>
         <HomeLink to={"/"}>
-          <HomeIcon size={35} color="white" />
+          <img src={Logo} />
         </HomeLink>
         <Item to={"#"}>
           <SearchIcon />

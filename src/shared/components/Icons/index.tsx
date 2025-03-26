@@ -6,6 +6,7 @@ import {
   Settings,
   Users,
   X,
+  FolderKanbanIcon,
 } from "lucide-react";
 
 export const Icons = {
@@ -16,4 +17,5 @@ export const Icons = {
   settings: Settings,
   users: Users,
   dashboard: LayoutDashboard,
+  folder: FolderKanbanIcon,
 };

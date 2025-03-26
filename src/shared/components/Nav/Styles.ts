@@ -9,7 +9,7 @@ export const NavBar = styled.nav`
   left: 0;
   height: 100vh;
   width: ${sizes.navWidth}px;
-  background-color: ${color.backgroundDarkPrimary};
+  background-color: ${color.primary};
   transition: width 0.2s ease;
 
   &:hover {
@@ -32,6 +32,11 @@ export const HomeLink = styled(NavLink)`
   transform: translateX(-50%);
   width: fit-content;
   margin-bottom: 1rem;
+
+  & > img {
+    width: 35px;
+    height: auto;
+  }
 `;
 
 export const Item = styled(NavLink)`

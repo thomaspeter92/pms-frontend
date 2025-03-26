@@ -1,11 +1,15 @@
 import { Priority } from "../constants/issues";
 
 export const color = {
-  primary: "#0052cc", // Blue
-  success: "#0B875B", // green
-  danger: "#E13C3C", // red
-  warning: "#F89C1C", // orange
-  secondary: "#F4F5F7", // light grey
+  primary: "#2A7BF3", // Blue
+  success: "#22C55E", // green
+  danger: "#FB2C36", // red
+  warning: "#FACC15", // orange
+
+  grayFaint: "#F3F5F9",
+  grayLight: "#E1E5EC",
+  grayMed: "#C0CDDE",
+  grayDark: "#64748B",
 
   textDarkest: "#172b4d",
   textDark: "#42526E",
@@ -35,7 +39,7 @@ export const issuePriorityColors = {
 export const sizes = {
   navWidth: 60,
   navHoverWidth: 200,
-  sidebarWidth: 200,
+  sidebarWidth: 300,
 };
 
 export const zIndexes = {
@@ -44,10 +48,10 @@ export const zIndexes = {
 
 export const font = {
   regular: 'font-family: "CircularStdBook"; font-weight: normal;',
-  medium: 'font-family: "CircularStdMedium"; font-weight: normal;',
-  bold: 'font-family: "CircularStdBold"; font-weight: normal;',
-  black: 'font-family: "CircularStdBlack"; font-weight: normal;',
-  size: (size: number) => `font-size: ${size}px;`,
+  medium: 'font-family: "CircularStdMedium"; font-weight: 500;',
+  bold: 'font-family: "CircularStdBold"; font-weight: 700;',
+  black: 'font-family: "CircularStdBlack"; font-weight: 900;',
+  // size: (size: number) => `font-size: ${size}px;`,
 };
 
 export const fontSizes = {

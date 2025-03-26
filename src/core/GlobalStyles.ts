@@ -13,8 +13,8 @@ export default createGlobalStyle`
     color: ${color.textDarkest};
     -webkit-tap-highlight-color: transparent;
     line-height: 1.2;
-    ${font.size(16)}
-    ${font.regular}
+
+    font-family: "Inter", sans-serif;
   }
 
   #root {
@@ -48,9 +48,7 @@ export default createGlobalStyle`
     margin: 0;
   }
 
-  h1, h2, h3, h4, h5, h6, strong {
-    ${font.bold}
-  }
+
 
   button {
     background: none;
