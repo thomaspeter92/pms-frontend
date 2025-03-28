@@ -28,6 +28,8 @@ export const BoardOuter = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
   height: 100%;
+  min-width: 800px;
+  overflow-x: auto;
 `;
 
 export const Column = styled.div`
@@ -42,4 +44,5 @@ export const ColumnTitle = styled.p`
   color: ${color.grayDark};
   text-transform: uppercase;
   letter-spacing: 1px;
+  margin-bottom: 1rem;
 `;

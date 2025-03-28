@@ -39,7 +39,7 @@ export const issuePriorityColors = {
 export const sizes = {
   navWidth: 60,
   navHoverWidth: 200,
-  sidebarWidth: 300,
+  sidebarWidth: 255,
 };
 
 export const zIndexes = {

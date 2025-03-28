@@ -9,6 +9,8 @@ import {
 } from "./Styles";
 import Avatar from "../../../shared/components/Avatar";
 import SearchBar from "../../../shared/components/SearchBar";
+import IssueCard from "./IssueCard";
+import { useState } from "react";
 type Props = {};
 
 const Board = (props: Props) => {
@@ -32,6 +34,8 @@ const Board = (props: Props) => {
       <BoardOuter>
         <Column>
           <ColumnTitle>To-do</ColumnTitle>
+          <IssueCard />
+          <IssueCard />
         </Column>
         <Column>
           <ColumnTitle>In progress</ColumnTitle>

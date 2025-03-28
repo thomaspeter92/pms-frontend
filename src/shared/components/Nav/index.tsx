@@ -21,7 +21,7 @@ function Nav({}: Props) {
         </Item>
         <Item to="#">
           <PlusIcon />
-          <ItemText>Create Issue</ItemText>
+          <ItemText>New Project</ItemText>
         </Item>
         <Item to="#">
           <Avatar size="md" imgUrl="/robot.jpg" />

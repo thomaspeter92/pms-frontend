@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { sizes } from "../../shared/util/styles";
 
-const paddingLeft = sizes.navWidth + sizes.sidebarWidth;
-
 export const Content = styled.main`
-  padding: 20px 20px 20px ${paddingLeft}px;
+  padding-left: ${sizes.sidebarWidth}px;
+  transition: all 0.3s ease;
+
+  @media (max-width: 950px) {
+    padding-left: ${sizes.navWidth + 20}px;
+  }
 `;

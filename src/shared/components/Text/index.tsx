@@ -22,7 +22,7 @@ const Text = ({
   color = "grayDark",
 }: Props) => {
   return (
-    <StyledText variant={variant} as={as} color={color} weight={weight}>
+    <StyledText $variant={variant} as={as} $color={color} $weight={weight}>
       {children}
     </StyledText>
   );

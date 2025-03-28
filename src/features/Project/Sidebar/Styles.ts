@@ -8,9 +8,14 @@ export const StyledSidebar = styled.aside`
   top: 0;
   height: 100vh;
   width: ${sizes.sidebarWidth}px;
-  max-width: 25ch;
+  /* max-width: 25ch; */
   background-color: ${color.grayFaint};
   padding: 2rem 1.5rem;
+  transition: all 0.3s ease;
+
+  @media (max-width: 950px) {
+    left: -${sizes.sidebarWidth}px;
+  }
 `;
 
 export const Header = styled.div`

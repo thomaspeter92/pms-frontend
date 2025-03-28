@@ -7,6 +7,8 @@ import {
   Users,
   X,
   FolderKanbanIcon,
+  Check,
+  Bookmark,
 } from "lucide-react";
 
 export const Icons = {
@@ -18,4 +20,6 @@ export const Icons = {
   users: Users,
   dashboard: LayoutDashboard,
   folder: FolderKanbanIcon,
+  check: Check,
+  story: Bookmark,
 };
