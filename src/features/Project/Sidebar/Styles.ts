@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { color, font, sizes } from "../../../shared/util/styles";
+import { color, sizes } from "../../../shared/util/styles";
 import { NavLink } from "react-router";
 
 export const StyledSidebar = styled.aside`

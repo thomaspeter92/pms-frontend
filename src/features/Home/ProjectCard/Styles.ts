@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Avatar from "../../../shared/components/Avatar";
 
 export const StyledCard = styled.div`
   padding: 1rem;

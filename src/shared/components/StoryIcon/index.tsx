@@ -1,10 +1,10 @@
-import React from "react";
+// import React from "react";
 import { Icons } from "../Icons";
 import { color } from "../../util/styles";
 
-type Props = {};
+// type Props = {};
 
-const StoryIcon = (props: Props) => {
+const StoryIcon = () => {
   const Icon = Icons["story"];
   return (
     <Icon

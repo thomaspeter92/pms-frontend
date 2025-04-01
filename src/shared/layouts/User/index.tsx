@@ -2,9 +2,9 @@ import { Outlet } from "react-router";
 import Nav from "../../components/Nav";
 import { Container } from "./Styles";
 
-type Props = {};
+// type Props = {};
 
-const UserLayout = (props: Props) => {
+const UserLayout = () => {
   return (
     <>
       <Nav />

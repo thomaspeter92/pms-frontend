@@ -9,7 +9,7 @@ type Props = {
   title?: string;
 };
 
-const Modal = ({ isOpen, onClose, children, title }: Props) => {
+const Modal = ({ isOpen, onClose, children }: Props) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   //   const CloseIcon = Icons["close"];
 

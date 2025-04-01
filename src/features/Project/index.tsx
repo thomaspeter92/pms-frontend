@@ -2,9 +2,9 @@ import { Outlet } from "react-router";
 import Sidebar from "./Sidebar";
 import { Content } from "./Styles";
 
-type Props = {};
+// type Props = {};
 
-const Project = (props: Props) => {
+const Project = () => {
   return (
     <>
       <Sidebar />

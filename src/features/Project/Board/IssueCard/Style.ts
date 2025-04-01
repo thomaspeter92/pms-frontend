@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { color, font } from "../../../../shared/util/styles";
+import { color } from "../../../../shared/util/styles";
 
 export const Card = styled.div`
   padding: 1rem;

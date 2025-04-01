@@ -1,10 +1,10 @@
-import React from "react";
+// import React from "react";
 import { Icons } from "../Icons";
 import { color } from "../../util/styles";
 
-type Props = {};
+// type Props = {};
 
-const TaskIcon = (props: Props) => {
+const TaskIcon = () => {
   const CheckIcon = Icons["check"];
   return (
     <CheckIcon

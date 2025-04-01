@@ -1,11 +1,11 @@
 import { Icons } from "../../../shared/components/Icons";
-import Text from "../../../shared/components/Text";
+// import Text from "../../../shared/components/Text";
 import { color } from "../../../shared/util/styles";
 import { Header, Item, StyledSidebar, Subheader } from "./Styles";
 
-type Props = {};
+// type Props = {};
 
-const Sidebar = (props: Props) => {
+const Sidebar = () => {
   const SettingsIcon = Icons["settings"];
   const UsersIcon = Icons["users"];
   const DashboardIcon = Icons["dashboard"];

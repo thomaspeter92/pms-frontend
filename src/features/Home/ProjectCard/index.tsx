@@ -1,21 +1,18 @@
-import React from "react";
 import { StyledCard } from "./Styles";
 import Text from "../../../shared/components/Text";
-import { color } from "../../../shared/util/styles";
 import Flex from "../../../shared/components/Flex";
-import { AvatarList } from "../../Project/Board/Styles";
 import Avatar from "../../../shared/components/Avatar";
 import { DateTime } from "luxon";
 
 type Props = {
   title: string;
   description: string;
-  users: string[];
+  // users: string[];
   start: string;
   end: string;
 };
 
-const ProjectCard = ({ title, description, users, start, end }: Props) => {
+const ProjectCard = ({ title, description, start, end }: Props) => {
   return (
     <StyledCard>
       <Text variant="md" weight={600} color={"primary"}>
@@ -48,7 +45,7 @@ const ProjectCard = ({ title, description, users, start, end }: Props) => {
             End Date
           </Text>
           <Text color="danger" variant="sm">
-            {DateTime.fromISO(start).toFormat("yyyy-MM-dd")}
+            {DateTime.fromISO(end).toFormat("yyyy-MM-dd")}
           </Text>
         </Flex>
       </Flex>

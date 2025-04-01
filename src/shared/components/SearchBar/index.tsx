@@ -1,10 +1,9 @@
-import React from "react";
 import { Container, Input } from "./Styles";
 import { Icons } from "../Icons";
 
-type Props = {};
+// type Props = {};
 
-const SearchBar = (props: Props) => {
+const SearchBar = () => {
   const Icon = Icons["search"];
   return (
     <Container>

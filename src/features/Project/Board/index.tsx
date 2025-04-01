@@ -10,10 +10,10 @@ import {
 import Avatar from "../../../shared/components/Avatar";
 import SearchBar from "../../../shared/components/SearchBar";
 import IssueCard from "./IssueCard";
-import { useState } from "react";
-type Props = {};
 
-const Board = (props: Props) => {
+// type Props = {};
+
+const Board = () => {
   return (
     <>
       <Header>

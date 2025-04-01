@@ -1,6 +1,6 @@
-import React from "react";
+// import React from "react";
 import TextInput from "../../shared/components/TextInput";
-import { StyledForm } from "../Project/Board/IssueDetail/Styles";
+// import { StyledForm } from "../Project/Board/IssueDetail/Styles";
 import { LoginForm } from "./Styles";
 
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -27,7 +27,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm<FormInputs>();
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {

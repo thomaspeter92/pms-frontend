@@ -1,12 +1,11 @@
-import React from "react";
 import { Container } from "./Styles";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../../api/projects";
 import ProjectCard from "./ProjectCard";
 
-type Props = {};
+// type Props = {};
 
-const Home = (props: Props) => {
+const Home = () => {
   const { data, isFetching } = useQuery({
     queryKey: ["all-projects"],
     queryFn: getAllProjects,
@@ -20,6 +19,7 @@ const Home = (props: Props) => {
       {data?.data?.length && !isFetching
         ? data.data.map((d) => (
             <ProjectCard
+              end={d.end_time}
               title={d.name}
               description={d.description}
               start={d.start_time}
