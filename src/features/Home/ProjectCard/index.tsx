@@ -1,7 +1,6 @@
 import { StyledCard } from "./Styles";
 import Text from "../../../shared/components/Text";
 import Flex from "../../../shared/components/Flex";
-import Avatar from "../../../shared/components/Avatar";
 import { DateTime } from "luxon";
 
 type Props = {
