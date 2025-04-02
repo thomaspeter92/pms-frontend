@@ -8,6 +8,7 @@ import Button from "../../shared/components/Button";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../api/users";
 import { useAuthStore } from "../../auth/authStore";
+import { jwtDecode } from "jwt-decode";
 
 type FormInputs = {
   email: string;
@@ -20,6 +21,7 @@ const Login = () => {
   const { mutate } = useMutation({
     mutationFn: login,
     onSuccess: (resp) => {
+      console.log(jwtDecode(resp.data.accessToken));
       setToken(resp.data.accessToken);
     },
   });
@@ -40,7 +42,9 @@ const Login = () => {
     <LoginForm onSubmit={handleSubmit(onSubmit)}>
       <TextInput label="Email" {...register("email")} />
       <TextInput label="Password" type="password" {...register("password")} />
-      <Button type="submit">Submit</Button>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
     </LoginForm>
   );
 };

@@ -19,6 +19,7 @@ const Home = () => {
       {data?.data?.length && !isFetching
         ? data.data.map((d) => (
             <ProjectCard
+              id={d.project_id!!}
               end={d.end_time}
               title={d.name}
               description={d.description}

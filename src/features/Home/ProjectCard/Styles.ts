@@ -1,6 +1,7 @@
+import { NavLink } from "react-router";
 import styled from "styled-components";
 
-export const StyledCard = styled.div`
+export const StyledCard = styled(NavLink)`
   padding: 1rem;
   background-color: white;
   border-radius: 5px;

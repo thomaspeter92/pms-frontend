@@ -6,4 +6,5 @@ export const Container = styled.div`
   background-color: ${color.grayFaint};
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 `;

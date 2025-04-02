@@ -3,16 +3,17 @@ import Text from "../../../../shared/components/Text";
 import StoryIcon from "../../../../shared/components/StoryIcon";
 import Avatar from "../../../../shared/components/Avatar";
 import TextInput from "../../../../shared/components/TextInput";
-import { StyledForm } from "./Styles";
+import { StyledForm, Container } from "./Styles";
+import { Issue } from "../../../../api/projects";
+import { DateTime } from "luxon";
 
-type Props = {};
-
-const IssueDetail = ({}: Props) => {
+const IssueDetail = ({ issue }: { issue: Issue }) => {
+  console.log(issue);
   return (
-    <Flex direction="column" align="flex-start" gap={".7rem"}>
+    <Container>
       <Flex align="center" justify="start" direction="row" gap={".5rem"}>
         <Text variant="sm" weight={700}>
-          Dashboard Projet
+          {issue?.projectDetails?.name}
         </Text>
         <Text variant="sm" weight={700}>
           /
@@ -23,7 +24,7 @@ const IssueDetail = ({}: Props) => {
         </Text>
       </Flex>
       <Flex justify="space-between" gap={"1rem"} width={"100%"}>
-        <Text weight={700}>Connect Sign Up Endpoints</Text>
+        <Text weight={700}>{issue.name}</Text>
         <Flex align="center" gap=".3rem">
           <Text variant="sm" color={"primary"}>
             Edit
@@ -40,12 +41,7 @@ const IssueDetail = ({}: Props) => {
         <Text weight={600} variant="sm">
           Description
         </Text>
-        <Text variant="sm">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum
-          vel porro, quia maxime aspernatur fuga atque excepturi ratione. Ipsam
-          et quod impedit quia totam illo sed perferendis dignissimos dolorem
-          beatae.
-        </Text>
+        <Text variant="sm">{issue.description}</Text>
       </Flex>
       <Flex gap={".5rem"}>
         <Flex gap={".5rem"}>
@@ -53,7 +49,9 @@ const IssueDetail = ({}: Props) => {
             Start Date:
           </Text>
           <Text weight={400} variant="sm">
-            2025-03-10
+            {DateTime.fromISO(issue.estimated_start_time).toFormat(
+              "yyyy-MM-dd"
+            )}
           </Text>
         </Flex>
         <Text variant="sm">|</Text>
@@ -62,7 +60,7 @@ const IssueDetail = ({}: Props) => {
             Deadline:
           </Text>
           <Text weight={400} variant="sm">
-            2025-03-10
+            {DateTime.fromISO(issue.estimated_end_time).toFormat("yyyy-MM-dd")}
           </Text>
         </Flex>
       </Flex>
@@ -76,7 +74,7 @@ const IssueDetail = ({}: Props) => {
           <button></button>
         </StyledForm>
       </Flex>
-    </Flex>
+    </Container>
   );
 };
 

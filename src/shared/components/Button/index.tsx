@@ -12,29 +12,30 @@ type Props =
   | (React.AnchorHTMLAttributes<HTMLAnchorElement> & { to?: string })
   | ReactRouterLinkProps;
 
-const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
-  ({ children, to, ...props }, ref) => {
-    if (to) {
-      return (
-        <StyledLink
-          to={to}
-          ref={ref as React.Ref<HTMLAnchorElement>}
-          {...(props as any)}
-        >
-          {children}
-        </StyledLink>
-      );
-    } else {
-      return (
-        <StyledButton
-          {...(props as any)}
-          ref={ref as React.Ref<HTMLButtonElement>}
-        >
-          {children}
-        </StyledButton>
-      );
-    }
+const Button = forwardRef<
+  HTMLButtonElement | HTMLAnchorElement,
+  Props & { variant: "gray" | "primary" }
+>(({ children, to, ...props }, ref) => {
+  if (to) {
+    return (
+      <StyledLink
+        to={to}
+        ref={ref as React.Ref<HTMLAnchorElement>}
+        {...(props as any)}
+      >
+        {children}
+      </StyledLink>
+    );
+  } else {
+    return (
+      <StyledButton
+        {...(props as any)}
+        ref={ref as React.Ref<HTMLButtonElement>}
+      >
+        {children}
+      </StyledButton>
+    );
   }
-);
+});
 
 export default Button;

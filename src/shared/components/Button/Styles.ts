@@ -2,14 +2,19 @@ import { Link } from "react-router";
 import styled, { css } from "styled-components";
 import { color } from "../../util/styles";
 
-export const buttonBaseStyles = css`
+type ButtonProps = {
+  variant: "gray" | "primary";
+};
+
+export const buttonBaseStyles = css<ButtonProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
-  background-color: ${color.primary};
+  background-color: ${(props) =>
+    props.variant === "gray" ? color.grayMed : color.primary};
   font-weight: 500;
   color: white;
   cursor: pointer;
@@ -20,10 +25,10 @@ export const buttonBaseStyles = css`
   }
 `;
 
-export const StyledButton = styled.button`
+export const StyledButton = styled.button<ButtonProps>`
   ${buttonBaseStyles}
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled(Link)<ButtonProps>`
   ${buttonBaseStyles}
 `;

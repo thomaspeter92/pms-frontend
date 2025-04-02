@@ -7,20 +7,16 @@ import IssueDetail from "../IssueDetail";
 
 // type Props = {};
 
-const IssueCard = () => {
+const IssueCard = ({ data }: { data: any }) => {
   const [modalOpen, setModalOpen] = useState(false);
-
-  console.log(modalOpen);
 
   return (
     <>
       <Card onClick={() => setModalOpen(true)}>
-        <Text variant="sm">
-          Users can log in with their username and passwords.
-        </Text>
+        <Text variant="sm">{data.name}</Text>
         <InfoFooter>
           <StoryIcon />
-          <Text variant="sm">LAU-255</Text>
+          <Text variant="sm">EXMPL-123</Text>
           <CommentCount>5</CommentCount>
         </InfoFooter>
       </Card>
@@ -29,7 +25,7 @@ const IssueCard = () => {
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
       >
-        <IssueDetail />
+        <IssueDetail issue={data} />
       </Modal>
     </>
   );

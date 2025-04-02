@@ -4,10 +4,10 @@ const URLS = {
   login: "/login",
 };
 
-export type LoginData = {
+export type LoginResponseData = {
   accessToken: string;
   refreshToken: string;
 };
 export const login = (body: { email: string; password: string }) => {
-  return api.post<LoginData>(URLS.login, body);
+  return api.post<LoginResponseData>(URLS.login, body);
 };

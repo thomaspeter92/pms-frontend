@@ -1,41 +1,29 @@
-import Text from "../../../shared/components/Text";
-import {
-  AvatarList,
-  BoardOuter,
-  Column,
-  ColumnTitle,
-  Header,
-  InfoSection,
-} from "./Styles";
-import Avatar from "../../../shared/components/Avatar";
-import SearchBar from "../../../shared/components/SearchBar";
+import { useParams } from "react-router";
+import { BoardOuter, Column, ColumnTitle } from "./Styles";
+import { useQuery } from "@tanstack/react-query";
+import { getAllProjectIssues } from "../../../api/projects";
 import IssueCard from "./IssueCard";
 
-// type Props = {};
-
 const Board = () => {
+  // const data = useQueryClient().getQueryData(["project"]);
+
+  const { id } = useParams();
+  const { data } = useQuery({
+    queryKey: ["project-issues", id],
+    queryFn: ({ queryKey }) => getAllProjectIssues(queryKey[1]!!),
+    enabled: id ? true : false,
+  });
+
+  console.log(data);
+
   return (
     <>
-      <Header>
-        <Text variant="sm">Projects / {"Dashbaord Project"}</Text>
-        <Text variant="lg" weight={700}>
-          Dashboard Project
-        </Text>
-        <InfoSection>
-          <SearchBar />
-          <AvatarList>
-            <Avatar size="md" imgUrl="/robot.jpg" />
-            <Avatar size="md" imgUrl="/robot.jpg" />
-            <Avatar size="md" imgUrl="/robot.jpg" />
-            <Avatar size="md" imgUrl="/robot.jpg" />
-          </AvatarList>
-        </InfoSection>
-      </Header>
       <BoardOuter>
         <Column>
-          <ColumnTitle>To-do</ColumnTitle>
-          <IssueCard />
-          <IssueCard />
+          <ColumnTitle>BACKLOG</ColumnTitle>
+          {data?.data.map((d) => (
+            <IssueCard data={d} key={d.task_id} />
+          ))}
         </Column>
         <Column>
           <ColumnTitle>In progress</ColumnTitle>

@@ -5,6 +5,7 @@ import Avatar from "../../../shared/components/Avatar";
 import { DateTime } from "luxon";
 
 type Props = {
+  id: string;
   title: string;
   description: string;
   // users: string[];
@@ -12,9 +13,9 @@ type Props = {
   end: string;
 };
 
-const ProjectCard = ({ title, description, start, end }: Props) => {
+const ProjectCard = ({ id, title, description, start, end }: Props) => {
   return (
-    <StyledCard>
+    <StyledCard to={"/project/" + id}>
       <Text variant="md" weight={600} color={"primary"}>
         {title}
       </Text>
@@ -23,13 +24,13 @@ const ProjectCard = ({ title, description, start, end }: Props) => {
         <Text variant="sm" weight={700}>
           Members (0)
         </Text>
-        <Flex>
+        {/* <Flex>
           <Avatar size="md" imgUrl="robot.jpg" />
           <Avatar size="md" imgUrl="robot.jpg" />
           <Avatar size="md" imgUrl="robot.jpg" />
           <Avatar size="md" imgUrl="robot.jpg" />
           <Avatar size="md" imgUrl="robot.jpg" />
-        </Flex>
+        </Flex> */}
       </Flex>
       <Flex gap={"1rem"}>
         <Flex direction="column">

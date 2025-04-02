@@ -6,7 +6,8 @@ export const ModalPanel = styled.dialog`
   border: none;
   border-radius: 5px;
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
-  max-width: 600px;
+  max-width: 95%;
+  /* width: 500px; */
 
   &:focus-visible {
     outline: none;
