@@ -23,8 +23,9 @@ export type Issue = {
     name: string;
   };
   priority?: "Low" | "Medium" | "High";
-  status?: "Backlog" | "In Progress" | "Done";
+  status?: "Backlog" | "In-Progress" | "Done";
   userDetails?: {};
+  task_type: "Story" | "Task";
 };
 
 export const getAllProjects = () => {

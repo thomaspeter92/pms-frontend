@@ -8,7 +8,9 @@ export const StyledInput = styled.input`
   border: 1.5px solid ${color.grayMed};
   border-radius: 5px;
   width: 100%;
-
+  background-color: ${(props) =>
+    props.type === "date" ? color.grayFaint : "white"};
+  color: ${color.grayDark};
   &:focus {
     border-color: ${color.primary};
     box-shadow: 0 0 5px ${color.primary};

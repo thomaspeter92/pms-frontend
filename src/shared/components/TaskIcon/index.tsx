@@ -9,6 +9,7 @@ const TaskIcon = () => {
   return (
     <CheckIcon
       style={{
+        padding: 2,
         borderRadius: 2,
         backgroundColor: color.primary,
         color: "white",

@@ -58,4 +58,5 @@ export const fontSizes = {
   lg: "1.2rem",
   md: "1rem",
   sm: "0.8rem",
+  xs: "0.7rem",
 };

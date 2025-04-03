@@ -8,6 +8,7 @@ type Props = {
   justify?: "center" | "end" | "start" | "space-between";
   gap?: any;
   width?: any;
+  flex?: any;
 };
 
 const Flex = ({
@@ -17,6 +18,7 @@ const Flex = ({
   justify = "start",
   gap = 0,
   width = "auto",
+  flex = 1,
 }: Props) => {
   return (
     <Container
@@ -25,6 +27,7 @@ const Flex = ({
       $justify={justify}
       $gap={gap}
       $width={width}
+      $flex={flex}
     >
       {children}
     </Container>

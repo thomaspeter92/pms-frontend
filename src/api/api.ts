@@ -3,7 +3,7 @@ import { useAuthStore } from "../auth/authStore";
 
 const axiosParams = {
   baseURL:
-    import.meta.env.NODE_ENV === "dev"
+    import.meta.env.VITE_NODE_ENV === "dev"
       ? "http://localhost:3000/api"
       : "http://ec2-3-35-208-149.ap-northeast-2.compute.amazonaws.com/api",
 };

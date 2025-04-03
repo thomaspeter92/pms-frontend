@@ -7,6 +7,7 @@ export const Container = styled("div")<{ size: "sm" | "md" | "lg" }>`
     size === "sm" ? "1rem" : size === "md" ? "2rem" : "3rem"};
   border-radius: 50%;
   overflow: hidden;
+  /* cursor: grab; */
 `;
 
 export const Image = styled.img`

@@ -6,6 +6,7 @@ export const Container = styled.div<{
   $direction?: string;
   $gap?: any;
   $width?: any;
+  $flex?: any;
 }>`
   display: flex;
   align-items: ${(props) => props.$align};
@@ -13,4 +14,5 @@ export const Container = styled.div<{
   justify-content: ${(props) => props.$justify};
   gap: ${(props) => props.$gap};
   width: ${(props) => props.$width};
+  flex: ${(props) => props.$flex};
 `;

@@ -9,6 +9,7 @@ import {
   FolderKanbanIcon,
   Check,
   Bookmark,
+  MoveUp,
 } from "lucide-react";
 
 export const Icons = {
@@ -22,4 +23,5 @@ export const Icons = {
   folder: FolderKanbanIcon,
   check: Check,
   story: Bookmark,
+  upArrow: MoveUp,
 };
