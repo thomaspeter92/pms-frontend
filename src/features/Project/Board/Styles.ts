@@ -10,11 +10,12 @@ export const BoardOuter = styled.div`
   overflow-x: auto;
 `;
 
-export const Column = styled.div<{ $active: boolean }>`
-  padding: 01rem;
+export const Column = styled.div<{ $isHovering?: boolean }>`
+  padding: 1rem;
   border-radius: 5px;
   background-color: ${(props) =>
-    props.$active ? color.grayMed : color.grayFaint};
+    props.$isHovering ? color.grayMed : color.grayFaint};
+  transition: all 0.3s ease;
 `;
 
 export const ColumnTitle = styled.p`

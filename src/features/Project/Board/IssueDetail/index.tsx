@@ -3,12 +3,12 @@ import Text from "../../../../shared/components/Text";
 import StoryIcon from "../../../../shared/components/StoryIcon";
 import Avatar from "../../../../shared/components/Avatar";
 import TextInput from "../../../../shared/components/TextInput";
-import { StyledForm, Container } from "./Styles";
+import { StyledForm, Container, CommentArea } from "./Styles";
 import { Issue } from "../../../../api/projects";
 import { DateTime } from "luxon";
+import Button from "../../../../shared/components/Button";
 
 const IssueDetail = ({ issue }: { issue: Issue }) => {
-  console.log(issue);
   return (
     <Container>
       <Flex align="center" justify="start" direction="row" gap={".5rem"}>
@@ -54,7 +54,7 @@ const IssueDetail = ({ issue }: { issue: Issue }) => {
             )}
           </Text>
         </Flex>
-        <Text variant="sm">|</Text>
+
         <Flex gap={".5rem"}>
           <Text variant="sm" weight={600}>
             Deadline:
@@ -71,8 +71,9 @@ const IssueDetail = ({ issue }: { issue: Issue }) => {
         <StyledForm>
           <Avatar size="md" imgUrl="/robot.jpg" />
           <TextInput />
-          <button></button>
+          <Button variant="primary">Post</Button>
         </StyledForm>
+        <CommentArea></CommentArea>
       </Flex>
     </Container>
   );

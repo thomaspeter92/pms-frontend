@@ -1,34 +1,55 @@
 import { useParams } from "react-router";
 import { BoardOuter, Column, ColumnTitle } from "./Styles";
-import { useQuery } from "@tanstack/react-query";
-import { getAllProjectIssues, Issue } from "../../../api/projects";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getAllProjectIssues, Issue, updateIssue } from "../../../api/projects";
 import IssueCard from "./IssueCard";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   dropTargetForElements, // NEW
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import { DateTime } from "luxon";
 
-const ColumnElement = ({ data, title }: { data: Issue[]; title: string }) => {
-  const colRef = useRef(null);
-  const [isDraggedOver, setIsDraggedOver] = useState(false);
+const ColumnElement = ({
+  data,
+  colId,
+  onDropTask,
+}: {
+  data: { colId: string; issues: Issue[] };
+  title: string;
+  colId: string;
+  onDropTask: (taskId: string, toColId: string, data: Issue) => void;
+}) => {
+  const colRef = useRef<HTMLDivElement>(null);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    const columnEl = colRef.current;
-
-    if (!columnEl) return;
-
+    if (!colRef.current) return;
     return dropTargetForElements({
-      element: columnEl,
-      onDragEnter: () => setIsDraggedOver(true),
-      onDragLeave: () => setIsDraggedOver(false),
-      onDrop: () => setIsDraggedOver(false),
+      element: colRef.current,
+      getData: () => ({ type: "column", colId }),
+      onDragEnter: () => {
+        setIsHovering(true);
+      },
+      onDragLeave: () => {
+        setIsHovering(false);
+      },
+      onDrop: ({ source }) => {
+        console.log(source);
+        if (source.data.type === "issue") {
+          onDropTask(
+            source.data.taskId as string,
+            colId,
+            source.data.data as Issue
+          );
+        }
+      },
     });
-  }, []);
+  }, [colId, onDropTask]);
 
   return (
-    <Column ref={colRef} $active={isDraggedOver}>
-      <ColumnTitle>{title}</ColumnTitle>
-      {data?.map((d) => (
+    <Column ref={colRef} $isHovering={isHovering}>
+      <ColumnTitle>{data.colId}</ColumnTitle>
+      {data?.issues?.map((d) => (
         <IssueCard data={d} key={d.task_id} />
       ))}
     </Column>
@@ -36,28 +57,96 @@ const ColumnElement = ({ data, title }: { data: Issue[]; title: string }) => {
 };
 
 const Board = () => {
-  // const data = useQueryClient().getQueryData(["project"]);
-  const backlogRef = useRef(null);
-  const progressRef = useRef(null);
-  const doneRef = useRef(null);
+  const [columns, setColumns] =
+    useState<{ colId: string; issues: Issue[] }[]>();
+  const { mutate } = useMutation({
+    mutationFn: updateIssue,
+  });
 
   const { id } = useParams();
-  const { data } = useQuery({
+  const { data, isSuccess } = useQuery({
     queryKey: ["project-issues", id],
     queryFn: ({ queryKey }) => getAllProjectIssues(queryKey[1]!!),
     enabled: id ? true : false,
   });
 
-  const backlogItems = data?.data?.filter((d) => d.status === "Backlog");
-  const inProgressItems = data?.data?.filter((d) => d.status === "In-Progress");
-  const doneItems = data?.data?.filter((d) => d.status === "Done");
+  useEffect(() => {
+    if (!data?.data && !isSuccess) return;
+    const cols: { colId: string; issues: Issue[] }[] = [
+      { colId: "Backlog", issues: [] },
+      { colId: "In-Progress", issues: [] },
+      { colId: "Done", issues: [] },
+    ];
+    data?.data.forEach((d) => {
+      cols[
+        d.status === "Backlog" ? 0 : d.status === "In-Progress" ? 1 : 2
+      ].issues.push(d);
+    });
+    setColumns(cols);
+  }, [data]);
+
+  const handleDropTask = useCallback(
+    (issueId: string, toColumnId: string, issue: Issue) => {
+      console.log(issueId, toColumnId);
+
+      setColumns((prev) => {
+        const newColumns = prev?.map((col) => {
+          const withoutTask = col.issues.filter((t) => {
+            if (t.task_id === issueId) {
+              issue = t;
+              issue.status = toColumnId as Issue["status"];
+              return false;
+            }
+            return true;
+          });
+          return { ...col, issues: withoutTask };
+        });
+
+        return newColumns?.map((col) => {
+          if (col.colId === toColumnId && issue) {
+            return { ...col, issues: [...col.issues, issue] };
+          }
+          return col;
+        });
+      });
+
+      if (issue) {
+        const issueToMove = { ...issue };
+        issueToMove.estimated_start_time = DateTime.fromISO(
+          issueToMove.estimated_start_time
+        ).toFormat("yyyy-MM-dd HH:mm:ss");
+        issueToMove.estimated_end_time = DateTime.fromISO(
+          issueToMove.estimated_end_time
+        ).toFormat("yyyy-MM-dd HH:mm:ss");
+        mutate(issueToMove);
+      }
+    },
+    []
+  );
+
+  if (!columns) return;
 
   return (
     <>
       <BoardOuter>
-        <ColumnElement data={backlogItems} title="Backlog" />
-        <ColumnElement data={inProgressItems} title="In-Progress" />
-        <ColumnElement data={doneItems} title="Done" />
+        <ColumnElement
+          colId={columns[0].colId}
+          onDropTask={handleDropTask}
+          data={columns[0]}
+          title="Backlog"
+        />
+        <ColumnElement
+          colId={columns[1].colId}
+          onDropTask={handleDropTask}
+          data={columns[1]}
+          title="In-Progress"
+        />
+        <ColumnElement
+          colId={columns[2].colId}
+          onDropTask={handleDropTask}
+          data={columns[2]}
+          title="Done"
+        />
       </BoardOuter>
     </>
   );

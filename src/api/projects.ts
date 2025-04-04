@@ -47,3 +47,7 @@ export const addNewIssue = (body: Issue) => {
 export const getAllProjectIssues = (projectId: string) => {
   return api.get<Issue[]>("/tasks?projectId=" + projectId);
 };
+
+export const updateIssue = (body: Issue) => {
+  return api.put<Issue>(`/tasks/${body.task_id}`, body);
+};

@@ -48,8 +48,11 @@ const api = (axios: AxiosInstance) => {
     ): Promise<ApiResponse<T>> => axios.post(url, body, config),
     // patch: <T>(url: string, body: unknown, config: AxiosRequestConfig = {}) =>
     //   axios.patch(url, body, config),
-    // put: <T>(url: string, body: unknown, config: AxiosRequestConfig = {}) =>
-    //   axios.put(url, body, config),
+    put: <T>(
+      url: string,
+      body: unknown,
+      config: AxiosRequestConfig = {}
+    ): Promise<ApiResponse<T>> => axios.put(url, body, config),
   };
 };
 export default api(axiosInstance);

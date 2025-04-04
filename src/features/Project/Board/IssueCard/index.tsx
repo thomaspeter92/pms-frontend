@@ -16,25 +16,24 @@ import { setCustomNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/el
 // type Props = {};
 
 const IssueCard = ({ data }: { data: Issue }) => {
-  const cardRef = useRef(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const PriorityIcon = Icons["upArrow"];
   const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
-    const cardEle = cardRef.current;
+    if (!cardRef.current) return;
 
-    if (cardEle) {
-      return draggable({
-        element: cardEle,
-        // getInitialData: () => ({ type: "card", cardId: data.task_id }),
-        onDragStart: () => {
-          setIsDragging(true);
-        },
-        onDrop: () => setIsDragging(false),
-      });
-    }
-  }, []);
+    return draggable({
+      element: cardRef.current,
+
+      getInitialData: () => ({
+        type: "issue",
+        taskId: data.task_id,
+        data: data,
+      }),
+    });
+  }, [data.task_id]);
 
   return (
     <>
