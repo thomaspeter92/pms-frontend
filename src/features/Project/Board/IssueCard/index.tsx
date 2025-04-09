@@ -48,7 +48,7 @@ const IssueCard = ({ data }: { data: Issue }) => {
           <Text variant="xs" weight={500}>
             {DateTime.fromISO(data.estimated_end_time).toFormat("yyyy-MM-dd")}
           </Text>
-          <CommentCount>5</CommentCount>
+          <CommentCount>{data.comment_count}</CommentCount>
           <PriorityIcon
             size={13}
             strokeWidth={3}

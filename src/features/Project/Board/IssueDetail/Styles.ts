@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Container as Input } from "../../../../shared/components/TextInput/Styles";
 import { color } from "../../../../shared/util/styles";
+import { CommentContainer } from "./Comment/Styles";
 
 export const Container = styled.div`
   width: 50ch;
@@ -22,8 +23,11 @@ export const StyledForm = styled.form`
 `;
 
 export const CommentArea = styled.div`
-  border-top: 2px solid ${color.grayMed};
-  & > *:not(:last-child) {
-    margin-bottom: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+  border-top: 1.5px solid ${color.grayLight};
+
+  ${CommentContainer}:not(:last-child) {
+    border-bottom: 1px solid ${color.grayLight};
   }
 `;

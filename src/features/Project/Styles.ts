@@ -4,9 +4,12 @@ import { sizes } from "../../shared/util/styles";
 export const Content = styled.main`
   padding-left: ${sizes.sidebarWidth}px;
   transition: all 0.3s ease;
+  height: 100%;
 
+  display: flex;
+  flex-direction: column;
   @media (max-width: 950px) {
-    padding-left: ${sizes.navWidth + 20}px;
+    padding-left: 0;
   }
 `;
 

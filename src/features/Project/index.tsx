@@ -21,44 +21,47 @@ const Project = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const { data, isFetching } = useQuery({
-    queryKey: ["project"],
-    queryFn: () => getProjectById(id!!),
+    queryKey: ["project", id],
+    queryFn: ({ queryKey }) => getProjectById(queryKey[1] as string),
     enabled: id ? true : false,
   });
 
-  if (data?.data && !isFetching)
-    return (
-      <>
-        <Sidebar />
-        <Content>
-          <Header>
-            <Text variant="sm">Projects / {data.data.name}</Text>
-            <Text variant="lg" weight={700}>
-              {data.data.name}
-            </Text>
-            <InfoSection>
-              <SearchBar />
-              <AvatarList>
-                <Avatar size="md" imgUrl="/robot.jpg" />
-                <Avatar size="md" imgUrl="/robot.jpg" />
-                <Avatar size="md" imgUrl="/robot.jpg" />
-                <Avatar size="md" imgUrl="/robot.jpg" />
-              </AvatarList>
-              <Button onClick={() => setModalOpen(true)} variant="primary">
-                New Task +
-              </Button>
-            </InfoSection>
-          </Header>
-          <Outlet />
-        </Content>
-        <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-          <NewIssue
-            closeForm={() => setModalOpen(false)}
-            project_id={data.data.project_id!!}
-          />
-        </Modal>
-      </>
-    );
+  if (isFetching) return null;
+
+  if (!data?.data) return null;
+
+  return (
+    <>
+      <Sidebar />
+      <Content>
+        <Header>
+          <Text variant="sm">Projects / {data.data.name}</Text>
+          <Text variant="lg" weight={700}>
+            {data.data.name}
+          </Text>
+          <InfoSection>
+            <SearchBar />
+            <AvatarList>
+              <Avatar size="md" imgUrl="/robot.jpg" />
+              <Avatar size="md" imgUrl="/robot.jpg" />
+              <Avatar size="md" imgUrl="/robot.jpg" />
+              <Avatar size="md" imgUrl="/robot.jpg" />
+            </AvatarList>
+            <Button onClick={() => setModalOpen(true)} variant="primary">
+              New Task +
+            </Button>
+          </InfoSection>
+        </Header>
+        <Outlet />
+      </Content>
+      <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+        <NewIssue
+          closeForm={() => setModalOpen(false)}
+          project_id={data.data.project_id!!}
+        />
+      </Modal>
+    </>
+  );
 };
 
 export default Project;

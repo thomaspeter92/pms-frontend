@@ -26,6 +26,16 @@ export type Issue = {
   status?: "Backlog" | "In-Progress" | "Done";
   userDetails?: {};
   task_type: "Story" | "Task";
+  comment_count?: number;
+};
+
+export type Comment = {
+  comment_id: string;
+  comment: string;
+  supported_files: string[];
+  created_at: string;
+  updated_at: string;
+  comment_author: String;
 };
 
 export const getAllProjects = () => {
@@ -50,4 +60,12 @@ export const getAllProjectIssues = (projectId: string) => {
 
 export const updateIssue = (body: Issue) => {
   return api.put<Issue>(`/tasks/${body.task_id}`, body);
+};
+
+export const getCommentsByTaskId = (taskId: string) => {
+  return api.get<Comment[]>("/comments?task_id=" + taskId);
+};
+
+export const addComment = (body: { comment: string; task_id: string }) => {
+  return api.post<Comment>("/comments", body);
 };

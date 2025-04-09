@@ -7,7 +7,7 @@ export const BoardOuter = styled.div`
   gap: 1rem;
   height: 100%;
   min-width: 800px;
-  overflow-x: auto;
+  /* overflow-x: auto; */
 `;
 
 export const Column = styled.div<{ $isHovering?: boolean }>`
@@ -16,6 +16,7 @@ export const Column = styled.div<{ $isHovering?: boolean }>`
   background-color: ${(props) =>
     props.$isHovering ? color.grayMed : color.grayFaint};
   transition: all 0.3s ease;
+  height: 100%;
 `;
 
 export const ColumnTitle = styled.p`

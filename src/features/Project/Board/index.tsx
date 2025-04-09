@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { BoardOuter, Column, ColumnTitle } from "./Styles";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllProjectIssues, Issue, updateIssue } from "../../../api/projects";
 import IssueCard from "./IssueCard";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -63,6 +63,8 @@ const Board = () => {
     mutationFn: updateIssue,
   });
 
+  const queryClient = useQueryClient();
+
   const { id } = useParams();
   const { data, isSuccess } = useQuery({
     queryKey: ["project-issues", id],
@@ -118,7 +120,10 @@ const Board = () => {
         issueToMove.estimated_end_time = DateTime.fromISO(
           issueToMove.estimated_end_time
         ).toFormat("yyyy-MM-dd HH:mm:ss");
-        mutate(issueToMove);
+        mutate(issueToMove, {
+          onSuccess: () =>
+            queryClient.invalidateQueries({ queryKey: ["project-issues", id] }),
+        });
       }
     },
     []
