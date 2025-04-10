@@ -60,7 +60,7 @@ export const Item = styled(NavLink)`
     margin: 0.2rem;
   }
 
-  &:last-of-type {
+  &:nth-child(4) {
     margin-top: auto;
   }
 `;
@@ -81,3 +81,5 @@ export const ItemText = styled.p`
     max-width: 150px; /* Set a max-width for smooth transition */
   }
 `;
+
+export const LogoutButton = styled.button``;

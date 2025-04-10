@@ -9,7 +9,7 @@ import { Header } from "./Styles";
 import { InfoSection } from "./Styles";
 import { AvatarList } from "./Styles";
 import Avatar from "../../shared/components/Avatar";
-import SearchBar from "../../shared/components/SearchBar";
+import SearchBar from "./ManageMembers/SearchBar";
 import Button from "../../shared/components/Button";
 import Modal from "../../shared/components/Modal";
 import NewIssue from "./Board/NewIssue";
@@ -32,7 +32,7 @@ const Project = () => {
 
   return (
     <>
-      <Sidebar />
+      <Sidebar currentProject={data?.data} />
       <Content>
         <Header>
           <Text variant="sm">Projects / {data.data.name}</Text>
@@ -40,7 +40,7 @@ const Project = () => {
             {data.data.name}
           </Text>
           <InfoSection>
-            <SearchBar />
+            {/* <SearchBar /> */}
             <AvatarList>
               <Avatar size="md" imgUrl="/robot.jpg" />
               <Avatar size="md" imgUrl="/robot.jpg" />

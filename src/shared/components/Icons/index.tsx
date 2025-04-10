@@ -10,6 +10,7 @@ import {
   Check,
   Bookmark,
   MoveUp,
+  LogOut,
 } from "lucide-react";
 
 export const Icons = {
@@ -24,4 +25,5 @@ export const Icons = {
   check: Check,
   story: Bookmark,
   upArrow: MoveUp,
+  logout: LogOut,
 };

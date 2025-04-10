@@ -5,12 +5,16 @@ import Logo from "../../../assets/images/Logo.png";
 import Modal from "../Modal";
 import { useState } from "react";
 import NewProject from "../../../features/Project/NewProject";
+import { useAuthStore } from "../../../auth/authStore";
 
 function Nav() {
+  const { logout } = useAuthStore();
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const PlusIcon = Icons["plus"];
   const SearchIcon = Icons["search"];
+  const LogoutIcon = Icons["logout"];
 
   return (
     <>
@@ -30,6 +34,10 @@ function Nav() {
           <Item to="#">
             <Avatar size="md" imgUrl="/robot.jpg" />
             <ItemText>My Account</ItemText>
+          </Item>
+          <Item onClick={logout} to="#">
+            <LogoutIcon />
+            <ItemText>Logout</ItemText>
           </Item>
         </Inner>
       </NavBar>
