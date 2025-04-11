@@ -14,6 +14,7 @@ import Button from "../../shared/components/Button";
 import Modal from "../../shared/components/Modal";
 import NewIssue from "./Board/NewIssue";
 import { useState } from "react";
+import { getProjectMembers } from "../../api/projects";
 
 const Project = () => {
   let { id } = useParams();
@@ -26,13 +27,20 @@ const Project = () => {
     enabled: id ? true : false,
   });
 
+  const { data: members } = useQuery({
+    queryKey: ["project-members", id],
+    queryFn: ({ queryKey }) => getProjectMembers(queryKey[1] as string),
+  });
+
+  console.log(users);
+
   if (isFetching) return null;
 
   if (!data?.data) return null;
 
   return (
     <>
-      <Sidebar currentProject={data?.data} />
+      <Sidebar currentProject={data?.data} members={members?.data} />
       <Content>
         <Header>
           <Text variant="sm">Projects / {data.data.name}</Text>

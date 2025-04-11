@@ -1,17 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { Icons } from "../../../shared/components/Icons";
-import { useGetQueryData } from "../../../shared/hooks/useGetQueryData";
-// import Text from "../../../shared/components/Text";
 import { color } from "../../../shared/util/styles";
 import { Header, Item, StyledSidebar, Subheader } from "./Styles";
-import { getAllProjects, Project } from "../../../api/projects";
+import { getAllProjects, Project, ProjectMember } from "../../../api/projects";
 import { useState } from "react";
 import Modal from "../../../shared/components/Modal";
 import ManageMembers from "../ManageMembers";
 
-// type Props = {};
-
-const Sidebar = ({ currentProject }: { currentProject: Project }) => {
+const Sidebar = ({
+  currentProject,
+}: {
+  currentProject: Project;
+  members: ProjectMember[];
+}) => {
   const SettingsIcon = Icons["settings"];
   const UsersIcon = Icons["users"];
   const DashboardIcon = Icons["dashboard"];
@@ -23,8 +24,6 @@ const Sidebar = ({ currentProject }: { currentProject: Project }) => {
     queryKey: ["all-projects"],
     queryFn: getAllProjects,
   });
-
-  console.log(currentProject);
 
   return (
     <>

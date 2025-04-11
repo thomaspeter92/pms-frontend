@@ -1,10 +1,10 @@
 import api from "./api";
+import { User } from "./users";
 
 export type Project = {
   project_id?: string;
   name: string;
   description: string;
-  user_ids: string[];
   start_time: string;
   end_time: string;
   created_at?: string;
@@ -38,6 +38,13 @@ export type Comment = {
   comment_author: String;
 };
 
+export type ProjectMember = {
+  project: string;
+  user?: Record<"full_name", string>;
+  created_at: string;
+  id: string;
+};
+
 export const getAllProjects = () => {
   return api.get<Project[]>("/projects");
 };
@@ -68,4 +75,15 @@ export const getCommentsByTaskId = (taskId: string) => {
 
 export const addComment = (body: { comment: string; task_id: string }) => {
   return api.post<Comment>("/comments", body);
+};
+
+export const addProjectMember = (body: {
+  project_id: string;
+  user_id: string;
+}) => {
+  return api.post<ProjectMember>("/project", {});
+};
+
+export const getProjectMembers = (project_id: string) => {
+  return api.get<ProjectMember[]>("/project-members?project_id=" + project_id);
 };
