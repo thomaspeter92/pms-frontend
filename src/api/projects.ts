@@ -81,9 +81,13 @@ export const addProjectMember = (body: {
   project_id: string;
   user_id: string;
 }) => {
-  return api.post<ProjectMember>("/project", {});
+  return api.post<ProjectMember>("/project-members", body);
 };
 
 export const getProjectMembers = (project_id: string) => {
   return api.get<ProjectMember[]>("/project-members?project_id=" + project_id);
+};
+
+export const removeProjectMember = (member_id: string) => {
+  return api.delete<ProjectMember>("/project-members/" + member_id);
 };

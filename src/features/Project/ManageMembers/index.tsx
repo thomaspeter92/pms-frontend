@@ -7,21 +7,21 @@ import Avatar from "../../../shared/components/Avatar";
 import { Icons } from "../../../shared/components/Icons";
 import { color } from "../../../shared/util/styles";
 import debounce from "lodash.debounce";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllUsers } from "../../../api/users";
+import { ProjectMember, removeProjectMember } from "../../../api/projects";
+import { useParams } from "react-router";
 
-const members = [
-  { name: "Tomas Peter", imgUrl: "/robot.jpg" },
-  { name: "Hannah Smith", imgUrl: "/robot.jpg" },
-  { name: "Helios Chen", imgUrl: "/robot.jpg" },
-  { name: "David Smith", imgUrl: "/robot.jpg" },
-  { name: "Becky Jones", imgUrl: "/robot.jpg" },
-  { name: "Jason Hannover", imgUrl: "/robot.jpg" },
-];
+const ManageMembers = ({
+  currentMembers,
+}: {
+  currentMembers: ProjectMember[];
+}) => {
+  const queryClient = useQueryClient();
 
-const ManageMembers = () => {
+  const { id } = useParams();
+
   const CloseIcon = Icons["close"];
-
   const [query, setQuery] = useState("");
   const { data, refetch } = useQuery({
     queryKey: ["search-users", query],
@@ -47,7 +47,12 @@ const ManageMembers = () => {
     }
   }, [query]);
 
-  console.log(data);
+  const { mutate: handleRemoveMember } = useMutation({
+    mutationFn: removeProjectMember,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["project-members", id] });
+    },
+  });
 
   return (
     <Flex direction="column" gap={"1rem"}>
@@ -65,17 +70,20 @@ const ManageMembers = () => {
           Current Members
         </Text>
         <Flex direction="column" gap={".5rem"} width={"100%"}>
-          {members.map((d) => (
-            <MemberCard>
-              <Avatar imgUrl={d.imgUrl} size="md" />
+          {currentMembers?.map((d) => (
+            <MemberCard key={d.id}>
+              <Avatar imgUrl={"/robot.jpg"} size="md" />
               <Text weight={500} variant="sm">
-                {d.name}
+                {d.user?.full_name}
               </Text>
-              <RemoveButton>
+              <RemoveButton onClick={() => handleRemoveMember(d.id)}>
                 <CloseIcon size={20} color={color.grayDark} />
               </RemoveButton>
             </MemberCard>
           ))}
+          {currentMembers?.length < 1 ? (
+            <Text variant="xs">There are no members on this project.</Text>
+          ) : null}
         </Flex>
       </Flex>
     </Flex>

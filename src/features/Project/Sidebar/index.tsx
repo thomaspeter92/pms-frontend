@@ -9,6 +9,7 @@ import ManageMembers from "../ManageMembers";
 
 const Sidebar = ({
   currentProject,
+  members,
 }: {
   currentProject: Project;
   members: ProjectMember[];
@@ -24,6 +25,8 @@ const Sidebar = ({
     queryKey: ["all-projects"],
     queryFn: getAllProjects,
   });
+
+  console.log(members);
 
   return (
     <>
@@ -52,7 +55,7 @@ const Sidebar = ({
         <hr style={{ marginBottom: "1rem" }} />
         <Subheader>ALL PROJECTS</Subheader>
         {projectsData?.data?.map((d) => (
-          <Item to={"/project/" + d.project_id}>
+          <Item key={d.project_id} to={"/project/" + d.project_id}>
             <ProjectIcon size={20} />
             {d.name}
           </Item>
@@ -62,7 +65,7 @@ const Sidebar = ({
         onClose={() => setMembersModalOpen(false)}
         isOpen={membersModalOpen}
       >
-        <ManageMembers />
+        <ManageMembers currentMembers={members!!} />
       </Modal>
     </>
   );

@@ -1,13 +1,11 @@
 import styled from "styled-components";
 import { color } from "../../../../shared/util/styles";
 
-export const Card = styled.div<{ isDragging: boolean }>`
+export const Card = styled.div`
   padding: 1rem;
   border-radius: 5px;
   background-color: white;
   box-shadow: 5px 5px 6px -5px rgba(0, 0, 0, 0.25);
-  /* cursor: grab; */
-  /* opacity: ${(props) => (props.isDragging ? 1 : 1)}; */
   &:not(:last-of-type) {
     margin-bottom: 1rem;
   }

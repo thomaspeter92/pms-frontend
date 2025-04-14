@@ -10,6 +10,7 @@ export type User = {
   username: string;
   full_name: string;
   created_at: string;
+  user_id: string;
 };
 
 export const login = (body: { email: string; password: string }) => {

@@ -15,6 +15,7 @@ import Modal from "../../shared/components/Modal";
 import NewIssue from "./Board/NewIssue";
 import { useState } from "react";
 import { getProjectMembers } from "../../api/projects";
+import TextAvatar from "../../shared/components/TextAvatar";
 
 const Project = () => {
   let { id } = useParams();
@@ -32,15 +33,13 @@ const Project = () => {
     queryFn: ({ queryKey }) => getProjectMembers(queryKey[1] as string),
   });
 
-  console.log(users);
-
   if (isFetching) return null;
 
   if (!data?.data) return null;
 
   return (
     <>
-      <Sidebar currentProject={data?.data} members={members?.data} />
+      <Sidebar currentProject={data?.data} members={members?.data!!} />
       <Content>
         <Header>
           <Text variant="sm">Projects / {data.data.name}</Text>
@@ -48,12 +47,17 @@ const Project = () => {
             {data.data.name}
           </Text>
           <InfoSection>
-            {/* <SearchBar /> */}
             <AvatarList>
-              <Avatar size="md" imgUrl="/robot.jpg" />
-              <Avatar size="md" imgUrl="/robot.jpg" />
-              <Avatar size="md" imgUrl="/robot.jpg" />
-              <Avatar size="md" imgUrl="/robot.jpg" />
+              {Array.isArray(members?.data) && members.data.length > 0 ? (
+                members.data.map((d) => (
+                  <TextAvatar
+                    key={id}
+                    initials={d.user?.full_name.substring(0, 1)!!}
+                  />
+                ))
+              ) : (
+                <Text variant="sm">This project currently has no members.</Text>
+              )}
             </AvatarList>
             <Button onClick={() => setModalOpen(true)} variant="primary">
               New Task +

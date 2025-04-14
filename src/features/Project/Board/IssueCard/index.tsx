@@ -10,16 +10,11 @@ import TaskIcon from "../../../../shared/components/TaskIcon";
 import { Issue } from "../../../../api/projects";
 import { DateTime } from "luxon";
 import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
-// import invariant from "tiny-invariant";
-import { setCustomNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview";
-
-// type Props = {};
 
 const IssueCard = ({ data }: { data: Issue }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const PriorityIcon = Icons["upArrow"];
-  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     if (!cardRef.current) return;
@@ -37,11 +32,7 @@ const IssueCard = ({ data }: { data: Issue }) => {
 
   return (
     <>
-      <Card
-        isDragging={isDragging}
-        ref={cardRef}
-        onClick={() => setModalOpen(true)}
-      >
+      <Card ref={cardRef} onClick={() => setModalOpen(true)}>
         <Text variant="sm">{data.name}</Text>
         <InfoFooter>
           {data.task_type === "Story" ? <StoryIcon /> : <TaskIcon />}

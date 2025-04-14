@@ -39,8 +39,10 @@ const api = (axios: AxiosInstance) => {
       url: string,
       config: AxiosRequestConfig = {}
     ): Promise<ApiResponse<T>> => axios.get(url, config),
-    delete: <T>(url: string, config: AxiosRequestConfig = {}) =>
-      axios.delete<T>(url, config),
+    delete: <T>(
+      url: string,
+      config: AxiosRequestConfig = {}
+    ): Promise<ApiResponse<T>> => axios.delete(url, config),
     post: <T>(
       url: string,
       body: unknown,

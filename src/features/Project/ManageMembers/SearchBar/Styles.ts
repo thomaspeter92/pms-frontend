@@ -22,7 +22,6 @@ export const Input = styled.input`
 `;
 
 export const SearchResults = styled.div`
-  padding: 0.5rem;
   background-color: white;
   border-radius: 5px;
   border: 1px solid ${color.grayLight};
@@ -35,9 +34,10 @@ export const SearchResults = styled.div`
 
 export const StyledSearchResult = styled.div`
   display: flex;
-  gap: 0.3rem;
+  gap: 0.5rem;
   align-items: center;
-  padding: 0.3rem 0;
+  padding: 0.8rem;
+  cursor: pointer;
 
   &:hover {
     background-color: ${color.grayLight};

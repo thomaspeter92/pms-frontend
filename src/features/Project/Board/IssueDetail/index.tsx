@@ -116,7 +116,7 @@ const IssueDetail = ({ issue }: { issue: Issue }) => {
         {!isFetching && data?.data ? (
           <CommentArea>
             {data.data.map((d) => (
-              <Comment data={d} />
+              <Comment key={d.comment_id} data={d} />
             ))}
           </CommentArea>
         ) : null}
