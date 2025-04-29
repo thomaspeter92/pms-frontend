@@ -1,15 +1,17 @@
 import { DateTime } from "luxon";
 import { Comment as CommentType } from "../../../../../api/projects";
-import Avatar from "../../../../../shared/components/Avatar";
 import Flex from "../../../../../shared/components/Flex";
 import Text from "../../../../../shared/components/Text";
 import { CommentContainer } from "./Styles";
-import { color } from "../../../../../shared/util/styles";
+import TextAvatar from "../../../../../shared/components/TextAvatar";
 
 const Comment = ({ data }: { data: CommentType }) => {
+  const initials =
+    data.comment_author?.split(" ")[0][0] +
+    data.comment_author?.split(" ")[1][0];
   return (
     <CommentContainer>
-      <Avatar imgUrl="/robot.jpg" size="md" />
+      <TextAvatar initials={initials} />
       <Flex direction="column" gap={".2rem"}>
         <Flex gap={".5rem"}>
           <Text variant="sm" color="primary" weight={700}>

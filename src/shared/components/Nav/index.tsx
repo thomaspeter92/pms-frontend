@@ -23,7 +23,7 @@ function Nav() {
           <HomeLink to={"/"}>
             <img src={Logo} />
           </HomeLink>
-          <Item to={"#"}>
+          <Item $disabled to={"#"}>
             <SearchIcon />
             <ItemText>Search Issues</ItemText>
           </Item>
@@ -31,7 +31,7 @@ function Nav() {
             <PlusIcon />
             <ItemText>New Project</ItemText>
           </Item>
-          <Item to="#">
+          <Item $disabled to="#">
             <Avatar size="md" imgUrl="/robot.jpg" />
             <ItemText>My Account</ItemText>
           </Item>

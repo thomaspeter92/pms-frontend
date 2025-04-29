@@ -6,6 +6,7 @@ import TextInput from "../../../../shared/components/TextInput";
 import { StyledForm, Container, CommentArea } from "./Styles";
 import {
   addComment,
+  deleteIssue,
   getCommentsByTaskId,
   Issue,
 } from "../../../../api/projects";
@@ -14,13 +15,25 @@ import Button from "../../../../shared/components/Button";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Comment from "./Comment";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useParams } from "react-router";
+import { Icons } from "../../../../shared/components/Icons";
+import { color } from "../../../../shared/util/styles";
 
 type CommentFormInput = {
   task_id: string;
   comment: string;
 };
 
-const IssueDetail = ({ issue }: { issue: Issue }) => {
+const IssueDetail = ({
+  issue,
+  closeForm,
+}: {
+  issue: Issue;
+  closeForm: () => void;
+}) => {
+  const CloseIcon = Icons["close"];
+
+  const { id } = useParams();
   const queryClient = useQueryClient();
   const { data, isFetching } = useQuery({
     queryKey: ["comments", issue.task_id],
@@ -38,6 +51,12 @@ const IssueDetail = ({ issue }: { issue: Issue }) => {
     mutationFn: addComment,
   });
 
+  const { mutate: deleteIssueMutate } = useMutation({
+    mutationFn: deleteIssue,
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["project-issues", id] }),
+  });
+
   const onSubmit: SubmitHandler<CommentFormInput> = (data) => {
     mutate(data, {
       onSuccess: () => {
@@ -49,32 +68,45 @@ const IssueDetail = ({ issue }: { issue: Issue }) => {
     });
   };
 
+  const handleDelete = () => {
+    deleteIssueMutate(issue?.task_id!!);
+  };
+
   return (
     <Container>
-      <Flex align="center" justify="start" direction="row" gap={".5rem"}>
-        <Text variant="sm" weight={700}>
-          {issue?.projectDetails?.name}
-        </Text>
-        <Text variant="sm" weight={700}>
-          /
-        </Text>
-        <StoryIcon />
-        <Text weight={400} variant="sm">
-          LUC-101
-        </Text>
+      <Flex>
+        <Flex align="center" justify="start" direction="row" gap={".5rem"}>
+          <Text variant="sm" weight={700}>
+            {issue?.projectDetails?.name}
+          </Text>
+          <Text variant="sm" weight={700}>
+            /
+          </Text>
+          <StoryIcon />
+          <Text weight={400} variant="sm">
+            LUC-101
+          </Text>
+        </Flex>
+        <button onClick={closeForm}>
+          <CloseIcon size={20} style={{ color: color.grayDark }} />
+        </button>
       </Flex>
       <Flex justify="space-between" gap={"1rem"} width={"100%"}>
         <Text weight={700}>{issue.name}</Text>
-        <Flex align="center" gap=".3rem">
-          <Text variant="sm" color={"primary"}>
-            Edit
-          </Text>
+        <Flex align="center" gap=".3rem" justify="end">
+          <button disabled>
+            <Text as="button" variant="sm" color={"grayLight"}>
+              Edit
+            </Text>
+          </button>
           <Text variant="sm" color={"primary"}>
             •
           </Text>
-          <Text variant="sm" color="primary">
-            Delete
-          </Text>
+          <button onClick={handleDelete}>
+            <Text variant="sm" color="primary">
+              Delete
+            </Text>
+          </button>
         </Flex>
       </Flex>
       <Flex direction="column" align="flex-start" gap={".3rem"}>

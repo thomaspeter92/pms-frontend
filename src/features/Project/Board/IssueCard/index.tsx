@@ -58,7 +58,7 @@ const IssueCard = ({ data }: { data: Issue }) => {
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
       >
-        <IssueDetail issue={data} />
+        <IssueDetail closeForm={() => setModalOpen(false)} issue={data} />
       </Modal>
     </>
   );

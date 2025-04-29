@@ -37,7 +37,9 @@ export const Subheader = styled.p`
   margin-bottom: 0.5rem;
 `;
 
-export const Item = styled(NavLink)`
+export const Item = styled(NavLink)<{
+  $disabled?: boolean;
+}>`
   padding: 0.75rem 0.5rem;
   color: ${color.textMedium};
   display: flex;
@@ -45,6 +47,7 @@ export const Item = styled(NavLink)`
   gap: 0.8rem;
   border-radius: 5px;
   font-size: 0.9rem;
+  cursor: ${(props) => (props.$disabled ? "not-allowed" : "pointer")};
 
   &:hover {
     background-color: ${color.grayLight};

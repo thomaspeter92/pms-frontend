@@ -44,7 +44,7 @@ const Sidebar = ({
           />
           {currentProject?.name}
         </Header>
-        <Item to={"#"}>
+        <Item to={"#"} $disabled>
           <SettingsIcon size={20} />
           Project Settings
         </Item>

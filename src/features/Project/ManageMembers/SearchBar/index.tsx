@@ -9,6 +9,7 @@ import { addProjectMember } from "../../../../api/projects";
 import TextAvatar from "../../../../shared/components/TextAvatar";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import { APIError } from "../../../../api/api";
 
 const SearchResult = ({ d }: { d: User }) => {
   const { id } = useParams();
@@ -19,8 +20,8 @@ const SearchResult = ({ d }: { d: User }) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["project-members", id] });
     },
-    onError: (error: AxiosError) => {
-      toast(error.response?.data?.message!!);
+    onError: (error: APIError) => {
+      toast(error.response?.data?.message, { type: "error" });
     },
   });
 

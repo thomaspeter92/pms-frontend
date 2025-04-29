@@ -14,9 +14,16 @@ export const ModalPanel = styled.dialog`
   }
 
   &::backdrop {
-    background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(1px);
   }
+`;
+
+export const ModalBackdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(1px);
 `;
 
 export const CloseButton = styled.button`

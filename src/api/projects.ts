@@ -35,7 +35,7 @@ export type Comment = {
   supported_files: string[];
   created_at: string;
   updated_at: string;
-  comment_author: String;
+  comment_author: string;
 };
 
 export type ProjectMember = {
@@ -69,8 +69,8 @@ export const updateIssue = (body: Issue) => {
   return api.put<Issue>(`/tasks/${body.task_id}`, body);
 };
 
-export const getCommentsByTaskId = (taskId: string) => {
-  return api.get<Comment[]>("/comments?task_id=" + taskId);
+export const getCommentsByTaskId = (task_id: string) => {
+  return api.get<Comment[]>("/comments?task_id=" + task_id);
 };
 
 export const addComment = (body: { comment: string; task_id: string }) => {
@@ -90,4 +90,8 @@ export const getProjectMembers = (project_id: string) => {
 
 export const removeProjectMember = (member_id: string) => {
   return api.delete<ProjectMember>("/project-members/" + member_id);
+};
+
+export const deleteIssue = (task_id: string) => {
+  return api.delete<Issue>("/tasks/" + task_id);
 };

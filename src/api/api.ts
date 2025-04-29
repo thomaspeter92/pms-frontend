@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import { useAuthStore } from "../auth/authStore";
 
 const axiosParams = {
@@ -31,6 +31,13 @@ export type ApiResponse<T> = {
   status: "success" | "error";
   data: T;
 };
+
+type APIErrorResponse = {
+  status: "error";
+  message: string;
+};
+
+export type APIError = AxiosError<APIErrorResponse>;
 
 // Main api function
 const api = (axios: AxiosInstance) => {

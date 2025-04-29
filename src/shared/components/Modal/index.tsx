@@ -1,6 +1,7 @@
 // import { createPortal } from "react-dom";
 import { useEffect, useRef } from "react";
-import { ModalPanel } from "./Styles";
+import { ModalBackdrop, ModalPanel } from "./Styles";
+import { ToastContainer } from "react-toastify";
 
 type Props = {
   isOpen: boolean;
@@ -30,14 +31,17 @@ const Modal = ({ isOpen, onClose, children }: Props) => {
     dialog.addEventListener("close", handleClose);
   }, [isOpen, onClose]);
 
-  return (
-    <ModalPanel ref={dialogRef}>
-      {/* <CloseButton>
+  return isOpen ? (
+    <ModalBackdrop>
+      <ModalPanel ref={dialogRef}>
+        {/* <ToastContainer containerId={"modal"} /> */}
+        {/* <CloseButton>
         <CloseIcon size={20} color={color.grayDark} />
-      </CloseButton> */}
-      {children}
-    </ModalPanel>
-  );
+        </CloseButton> */}
+        {children}
+      </ModalPanel>
+    </ModalBackdrop>
+  ) : null;
 };
 
 export default Modal;

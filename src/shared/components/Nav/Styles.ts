@@ -39,7 +39,9 @@ export const HomeLink = styled(NavLink)`
   }
 `;
 
-export const Item = styled(NavLink)`
+export const Item = styled(NavLink)<{
+  $disabled?: boolean;
+}>`
   display: flex;
   align-items: center;
   width: 100%;
@@ -47,6 +49,7 @@ export const Item = styled(NavLink)`
   padding-left: ${sizes.navWidth / 2 - sizes.navWidth / 4}px;
   transition: background 0.2s;
   color: ${color.backgroundLightest};
+  cursor: ${(props) => (props.$disabled ? "not-allowed" : "pointer")};
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
