@@ -11,6 +11,8 @@ import {
   Bookmark,
   MoveUp,
   LogOut,
+  ChevronsLeftRight,
+  ChevronsRight,
 } from "lucide-react";
 
 export const Icons = {
@@ -26,4 +28,6 @@ export const Icons = {
   story: Bookmark,
   upArrow: MoveUp,
   logout: LogOut,
+  collapse: ChevronsLeftRight,
+  chevronsRight: ChevronsRight,
 };

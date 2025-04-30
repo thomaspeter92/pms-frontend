@@ -1,11 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { Icons } from "../../../shared/components/Icons";
 import { color } from "../../../shared/util/styles";
-import { Header, Item, StyledSidebar, Subheader } from "./Styles";
+import {
+  CollapseButton,
+  Header,
+  Item,
+  SidebarBackdrop,
+  StyledSidebar,
+  Subheader,
+} from "./Styles";
 import { getAllProjects, Project, ProjectMember } from "../../../api/projects";
 import { useState } from "react";
 import Modal from "../../../shared/components/Modal";
 import ManageMembers from "../ManageMembers";
+import { set } from "react-hook-form";
 
 const Sidebar = ({
   currentProject,
@@ -14,11 +22,13 @@ const Sidebar = ({
   currentProject: Project;
   members: ProjectMember[];
 }) => {
+  const CollapseIcon = Icons["chevronsRight"];
   const SettingsIcon = Icons["settings"];
   const UsersIcon = Icons["users"];
   const DashboardIcon = Icons["dashboard"];
   const ProjectIcon = Icons["folder"];
 
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [membersModalOpen, setMembersModalOpen] = useState(false);
 
   const { data: projectsData } = useQuery({
@@ -26,11 +36,26 @@ const Sidebar = ({
     queryFn: getAllProjects,
   });
 
-  console.log(members);
+  const toggleOpen = () => {
+    setMobileSidebarOpen((open) => !open);
+  };
 
   return (
     <>
-      <StyledSidebar>
+      {mobileSidebarOpen && <SidebarBackdrop />}
+      <StyledSidebar $isOpen={mobileSidebarOpen}>
+        <CollapseButton onClick={toggleOpen}>
+          <CollapseIcon
+            style={{
+              color: color.grayDark,
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%,-50%)",
+            }}
+            size={15}
+          />
+        </CollapseButton>
         <Header>
           <DashboardIcon
             size={50}

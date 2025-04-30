@@ -8,6 +8,8 @@ import { useAuthStore } from "../../../../auth/authStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addNewIssue } from "../../../../api/projects";
 import Select from "../../../../shared/components/Select";
+import { APIError } from "../../../../api/api";
+import { toast } from "react-toastify";
 
 type FormInputs = {
   project_id: string;
@@ -33,6 +35,17 @@ const NewIssue = ({
 
   const { mutate } = useMutation({
     mutationFn: addNewIssue,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["project-issues", project_id],
+      });
+      closeForm();
+    },
+    onError: (error: APIError) => {
+      toast("Unable to create Issue, check inputs and try again", {
+        type: "error",
+      });
+    },
   });
 
   const { register, handleSubmit } = useForm<FormInputs>({
@@ -52,14 +65,7 @@ const NewIssue = ({
     data.estimated_start_time += " 00:00:00";
     data.estimated_end_time += " 00:00:00";
     console.log(data);
-    mutate(data, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ["project-issues", project_id],
-        });
-        closeForm();
-      },
-    });
+    mutate(data, {});
   };
 
   return (

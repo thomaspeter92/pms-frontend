@@ -18,6 +18,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useParams } from "react-router";
 import { Icons } from "../../../../shared/components/Icons";
 import { color } from "../../../../shared/util/styles";
+import TextAvatar from "../../../../shared/components/TextAvatar";
+import { useAuthStore } from "../../../../auth/authStore";
 
 type CommentFormInput = {
   task_id: string;
@@ -32,9 +34,10 @@ const IssueDetail = ({
   closeForm: () => void;
 }) => {
   const CloseIcon = Icons["close"];
-
+  const { user } = useAuthStore();
   const { id } = useParams();
   const queryClient = useQueryClient();
+
   const { data, isFetching } = useQuery({
     queryKey: ["comments", issue.task_id],
     queryFn: () => getCommentsByTaskId(issue.task_id!!),
@@ -95,7 +98,7 @@ const IssueDetail = ({
         <Text weight={700}>{issue.name}</Text>
         <Flex align="center" gap=".3rem" justify="end">
           <button disabled>
-            <Text as="button" variant="sm" color={"grayLight"}>
+            <Text variant="sm" color={"grayLight"}>
               Edit
             </Text>
           </button>
@@ -141,7 +144,9 @@ const IssueDetail = ({
           Comments
         </Text>
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
-          <Avatar size="md" imgUrl="/robot.jpg" />
+          <TextAvatar
+            initials={user.name.split(" ")[0][0] + user.name.split(" ")[1][0]}
+          />
           <TextInput required {...register("comment")} />
           <Button variant="primary">Post</Button>
         </StyledForm>

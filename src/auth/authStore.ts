@@ -6,6 +6,7 @@ interface AuthState {
   token: string;
   userId: string;
   refreshToken: string;
+  user: any;
   setToken: (token: string) => void;
   logout: () => void;
 }
@@ -15,10 +16,11 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       userId: "",
       token: "",
+      user: {},
       refreshToken: "",
       setToken: (tkn) => {
-        const decoded: { user_id: string } = jwtDecode(tkn);
-        set({ token: tkn, userId: decoded.user_id });
+        const decoded = jwtDecode(tkn);
+        set({ token: tkn, user: { ...decoded } });
       },
       logout: () => set({ token: "", userId: "", refreshToken: "" }),
     }),

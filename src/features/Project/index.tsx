@@ -51,7 +51,7 @@ const Project = () => {
               {Array.isArray(members?.data) && members.data.length > 0 ? (
                 members.data.map((d) => (
                   <TextAvatar
-                    key={id}
+                    key={d.id}
                     initials={d.user?.full_name.substring(0, 1)!!}
                   />
                 ))

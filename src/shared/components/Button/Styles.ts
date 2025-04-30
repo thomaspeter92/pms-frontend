@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { color } from "../../util/styles";
 
 type ButtonProps = {
-  variant: "gray" | "primary";
+  $variant: "gray" | "primary";
 };
 
 export const buttonBaseStyles = css<ButtonProps>`
@@ -14,7 +14,7 @@ export const buttonBaseStyles = css<ButtonProps>`
   border: none;
   border-radius: 5px;
   background-color: ${(props) =>
-    props.variant === "gray" ? color.grayMed : color.primary};
+    props.$variant === "gray" ? color.grayMed : color.primary};
   font-weight: 500;
   color: white;
   cursor: pointer;

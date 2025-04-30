@@ -22,8 +22,9 @@ export const ModalBackdrop = styled.div`
   top: 0;
   left: 0;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(1px);
+  z-index: 100;
 `;
 
 export const CloseButton = styled.button`

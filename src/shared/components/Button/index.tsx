@@ -14,11 +14,14 @@ type Props =
 
 const Button = forwardRef<
   HTMLButtonElement | HTMLAnchorElement,
-  Props & { variant: "gray" | "primary" }
->(({ children, to, ...props }, ref) => {
+  Props & {
+    variant: "gray" | "primary";
+  }
+>(({ children, to, variant, ...props }, ref) => {
   if (to) {
     return (
       <StyledLink
+        $variant={variant}
         to={to}
         ref={ref as React.Ref<HTMLAnchorElement>}
         {...(props as any)}
@@ -29,6 +32,7 @@ const Button = forwardRef<
   } else {
     return (
       <StyledButton
+        $variant={variant}
         {...(props as any)}
         ref={ref as React.Ref<HTMLButtonElement>}
       >

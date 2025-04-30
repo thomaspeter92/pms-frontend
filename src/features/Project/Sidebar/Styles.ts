@@ -2,7 +2,43 @@ import styled from "styled-components";
 import { color, sizes } from "../../../shared/util/styles";
 import { NavLink } from "react-router";
 
-export const StyledSidebar = styled.aside`
+export const SidebarBackdrop = styled.div`
+  display: none;
+  @media (max-width: 950px) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 0;
+    backdrop-filter: blur(1px);
+  }
+`;
+
+export const CollapseButton = styled.button`
+  @media (min-width: 950px) {
+    display: none;
+  }
+  position: absolute;
+  width: 1rem;
+  height: 100vh;
+  background-color: ${color.grayLight};
+  right: 0;
+  top: 0;
+  transform: translateX(98%);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  transition: all 0.2s ease;
+
+  &:hover {
+    width: 2rem;
+  }
+`;
+
+export const StyledSidebar = styled.aside<{
+  $isOpen: boolean;
+}>`
   position: fixed;
   left: ${sizes.navWidth}px;
   top: 0;
@@ -14,7 +50,11 @@ export const StyledSidebar = styled.aside`
   transition: all 0.3s ease;
 
   @media (max-width: 950px) {
-    left: -${sizes.sidebarWidth}px;
+    left: ${(props) =>
+      props.$isOpen
+        ? `${sizes.navWidth}px`
+        : `-${sizes.sidebarWidth - sizes.navWidth}px`};
+    z-index: 10;
   }
 `;
 
