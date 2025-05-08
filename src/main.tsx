@@ -15,7 +15,7 @@ createRoot(document.getElementById("root")!).render(
         <App />
       </BrowserRouter>
       <ToastContainer />
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   </StrictMode>
 );

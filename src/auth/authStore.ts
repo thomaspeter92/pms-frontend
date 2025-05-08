@@ -1,6 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { redirect } from "react-router";
 
 interface AuthState {
   token: string;
@@ -22,7 +23,10 @@ export const useAuthStore = create<AuthState>()(
         const decoded = jwtDecode(tkn);
         set({ token: tkn, user: { ...decoded } });
       },
-      logout: () => set({ token: "", userId: "", refreshToken: "" }),
+      logout: () => {
+        redirect("/");
+        set({ token: "", userId: "", refreshToken: "" });
+      },
     }),
     {
       name: "auth",

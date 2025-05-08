@@ -6,8 +6,10 @@ import Modal from "../Modal";
 import { useState } from "react";
 import NewProject from "../../../features/Project/NewProject";
 import { useAuthStore } from "../../../auth/authStore";
+import { useNavigate } from "react-router";
 
 function Nav() {
+  const navigate = useNavigate();
   const { logout } = useAuthStore();
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -15,6 +17,11 @@ function Nav() {
   const PlusIcon = Icons["plus"];
   const SearchIcon = Icons["search"];
   const LogoutIcon = Icons["logout"];
+
+  const handleLogout = () => {
+    navigate("/");
+    logout();
+  };
 
   return (
     <>
@@ -35,7 +42,7 @@ function Nav() {
             <Avatar size="md" imgUrl="/robot.jpg" />
             <ItemText>My Account</ItemText>
           </Item>
-          <Item onClick={logout} to="#">
+          <Item as={"button"} to={""} onClick={handleLogout}>
             <LogoutIcon />
             <ItemText>Logout</ItemText>
           </Item>

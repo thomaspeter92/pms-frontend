@@ -5,15 +5,15 @@ import { color, font } from "../shared/util/styles";
 export default createGlobalStyle`
   html, body, #root {
     height: 100%;
-    min-height: 100%;
-    min-width: 768px;
+    min-height: 100dvh;
+    /* min-width: 768px; */
+    overflow: hidden;
   }
 
   body {
     color: ${color.textDarkest};
     -webkit-tap-highlight-color: transparent;
     line-height: 1.2;
-
     font-family: "Inter", sans-serif;
   }
 
@@ -47,8 +47,6 @@ export default createGlobalStyle`
     padding: 0;
     margin: 0;
   }
-
-
 
   button {
     background: none;
