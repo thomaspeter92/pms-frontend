@@ -15,6 +15,7 @@ axiosInstance.interceptors.response.use((config) => {
   if (config?.data) {
     return config.data;
   }
+
   return config;
 });
 
