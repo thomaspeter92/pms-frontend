@@ -11,16 +11,25 @@ const axiosParams = {
 const axiosInstance: AxiosInstance = axios.create(axiosParams);
 
 // return data to avoid data.data access
-axiosInstance.interceptors.response.use((config) => {
-  if (config?.data) {
-    return config.data;
+axiosInstance.interceptors.response.use(
+  (res) => {
+    console.log(res);
+    if (res?.data) {
+      return res.data;
+    }
+    return res;
+  },
+  (error) => {
+    // log out users if the are unauthorised (persisting tokens)
+    if (error.status === 401) {
+      useAuthStore.getState().logout();
+    }
   }
-
-  return config;
-});
+);
 
 // Attach token if present
 axiosInstance.interceptors.request.use((config) => {
+  console.log();
   if (useAuthStore.getState().token) {
     config.headers.Authorization = `Bearer ${useAuthStore.getState().token}`;
   }

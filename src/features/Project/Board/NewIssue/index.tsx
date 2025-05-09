@@ -4,11 +4,9 @@ import ForwardedTextInput from "../../../../shared/components/TextInput";
 import Text from "../../../../shared/components/Text";
 import Flex from "../../../../shared/components/Flex";
 import Button from "../../../../shared/components/Button";
-import { useAuthStore } from "../../../../auth/authStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addNewIssue } from "../../../../api/projects";
 import Select from "../../../../shared/components/Select";
-import { APIError } from "../../../../api/api";
 import { toast } from "react-toastify";
 
 type FormInputs = {
@@ -17,7 +15,6 @@ type FormInputs = {
   description: string;
   estimated_start_time: string;
   estimated_end_time: string;
-  user_id: string;
   priority: "Low" | "Medium" | "High";
   task_type: "Task" | "Story";
 };
@@ -29,8 +26,6 @@ const NewIssue = ({
   project_id: string;
   closeForm: () => void;
 }) => {
-  const { userId } = useAuthStore();
-
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -41,17 +36,20 @@ const NewIssue = ({
       });
       closeForm();
     },
-    onError: (error: APIError) => {
+    onError: () => {
       toast("Unable to create Issue, check inputs and try again", {
         type: "error",
       });
     },
   });
 
-  const { register, handleSubmit } = useForm<FormInputs>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInputs>({
     defaultValues: {
       project_id: project_id,
-      user_id: userId,
       name: "",
       description: "",
       estimated_start_time: "",
@@ -62,17 +60,26 @@ const NewIssue = ({
   });
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    data.estimated_start_time += " 00:00:00";
-    data.estimated_end_time += " 00:00:00";
-    console.log(data);
+    data.estimated_start_time += " 23:59:59";
+    data.estimated_end_time += " 23:59:59";
     mutate(data, {});
   };
+
+  console.log(errors);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Text weight={700}>Create Issue</Text>
-      <ForwardedTextInput label="Name" {...register("name")} />
-      <ForwardedTextInput label="Description" {...register("description")} />
+      <ForwardedTextInput
+        label="Name"
+        error={Boolean(errors.name)}
+        {...register("name", { required: true, minLength: 3 })}
+      />
+      <ForwardedTextInput
+        label="Description"
+        error={Boolean(errors.description)}
+        {...register("description", { required: true, minLength: 10 })}
+      />
       <Flex gap={"1rem"}>
         <Flex flex={1} gap={".3rem"} direction="column">
           <Text variant="sm" weight={600}>
@@ -97,12 +104,14 @@ const NewIssue = ({
         <ForwardedTextInput
           type="date"
           label="Start Date"
-          {...register("estimated_start_time")}
+          error={Boolean(errors.estimated_start_time)}
+          {...register("estimated_start_time", { required: true })}
         />
         <ForwardedTextInput
           type="date"
           label="End Date"
-          {...register("estimated_end_time")}
+          error={Boolean(errors.estimated_end_time)}
+          {...register("estimated_end_time", { required: true })}
         />
       </Flex>
       <Flex gap={"1rem"} justify="end">

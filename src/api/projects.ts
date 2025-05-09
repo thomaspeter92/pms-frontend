@@ -14,7 +14,7 @@ export type Project = {
 export type Issue = {
   task_id?: string;
   project_id: string;
-  user_id: string;
+  user_id?: string;
   name: string;
   description: string;
   estimated_start_time: string;

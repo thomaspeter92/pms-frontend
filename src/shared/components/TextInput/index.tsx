@@ -3,16 +3,18 @@ import { Container, StyledInput, StyledLabel } from "./Styles";
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
+  error?: boolean;
 };
 
 const TextInput: ForwardRefRenderFunction<HTMLInputElement, Props> = (
-  { label, id, ...inputProps },
+  { label, id, error, ...inputProps },
   ref
 ) => {
+  console.log(error);
   return (
     <Container>
       {label && <StyledLabel>{label}</StyledLabel>}
-      <StyledInput ref={ref} {...inputProps} />
+      <StyledInput $error={error} ref={ref} {...inputProps} />
     </Container>
   );
 };
